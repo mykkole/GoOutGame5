@@ -15,6 +15,7 @@ public class Game1 : Game
     private State _nextState;
 
     public static Random random;
+    
 
     public Game1()
     {
@@ -37,6 +38,7 @@ public class Game1 : Game
     protected override void LoadContent()
     {
         _spriteBatch = new SpriteBatch(GraphicsDevice);
+
         _currentState = new MenuState(this, GraphicsDevice, Content);
         _currentState.LoadContent();
         _nextState = null;

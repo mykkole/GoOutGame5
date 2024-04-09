@@ -23,7 +23,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds/к2.jpg
+/build:Backgrounds/к2.jpg;Backgrounds/k3
 
 #begin Backgrounds/к3.jpg
 /importer:TextureImporter
@@ -35,7 +35,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds/к3.jpg
+/build:Backgrounds/к3.jpg;Backgrounds/k2
 
 #begin Backgrounds/кк1.jpg
 /importer:TextureImporter
@@ -47,7 +47,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Backgrounds/кк1.jpg
+/build:Backgrounds/кк1.jpg;Backgrounds/k1
 
 #begin Backgrounds/пустая заставка.png
 /importer:TextureImporter

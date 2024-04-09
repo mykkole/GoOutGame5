@@ -48,12 +48,14 @@ public class GameState : State
 
     private void ArrowRightBottonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game,_graphicsDevice,_content));
+        Globals.Position += 1;
+        _game.ChangeState(new GameState(_game,_graphicsDevice,_content));
     }
 
     private void ArrowLeftBottonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game,_graphicsDevice,_content));
+        Globals.Position -= 1;
+        _game.ChangeState(new GameState(_game,_graphicsDevice,_content));
     }
     
     private void SettingsButtonClick(object sender, EventArgs e)
@@ -63,7 +65,15 @@ public class GameState : State
 
     public override void LoadContent()
     {
-        gameBackground = _content.Load<Texture2D>("Backgrounds/Bedroom");
+        var roomNum = Math.Abs(Globals.Position)%4;
+        if (roomNum == 0) 
+            gameBackground = _content.Load<Texture2D>("Backgrounds/Bedroom");
+        if (roomNum == 1) 
+            gameBackground = _content.Load<Texture2D>("Backgrounds/k1");
+        if (roomNum == 2) 
+            gameBackground = _content.Load<Texture2D>("Backgrounds/k2");
+        if (roomNum == 3) 
+            gameBackground = _content.Load<Texture2D>("Backgrounds/k3");
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
