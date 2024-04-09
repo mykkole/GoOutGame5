@@ -4,5 +4,5 @@ namespace GoOutGame;
 
 public class Globals
 {
-    public static int Position;
+    public static int Quest;
 }

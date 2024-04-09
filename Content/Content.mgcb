@@ -73,7 +73,7 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/спальня (3).png;Backgrounds/Bedroom
 
-#begin Controls/Group 107.png
+#begin Controls/Group 107 (3).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -83,9 +83,9 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Controls/Group 107.png;Controls/ArrowLeft
+/build:Controls/Group 107 (3).png;Controls/ArrowLeft
 
-#begin Controls/Group 108.png
+#begin Controls/Group 108 (1).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -95,7 +95,31 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Controls/Group 108.png;Controls/ArrowRight
+/build:Controls/Group 108 (1).png;Controls/ArrowRight
+
+#begin Controls/Group 66.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Group 66.png;Controls/tableButton
+
+#begin Controls/Group 90.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Group 90.png;Controls/phoneButton
 
 #begin Controls/Group 95.png
 /importer:TextureImporter

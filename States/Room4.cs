@@ -8,14 +8,14 @@ using Microsoft.Xna.Framework.Input;
 
 namespace GoOutGame.States;
 
-public class GameState : State
+public class Room4 : State
 {
     private List<Component> _components;
     public static Random random;
     private Texture2D gameBackground;
     private int Counter;
     private float timer;
-    public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
+    public Room4(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
     : base(game, graphicsDevice, content)
     {
         random = new Random();
@@ -23,15 +23,6 @@ public class GameState : State
         var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
         var arrowLeftBottonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
         var arrowRightBottonTexture  = _content.Load<Texture2D>("Controls/ArrowRight");
-        var tableTexture = _content.Load<Texture2D>("Controls/tableButton");
-        
-        var tableButton = new Button(tableTexture, buttonFont)
-        {
-            Position = new(462, 696),
-            Text = "",
-        };
-        tableButton.Click += TableButtonClick;
-        
         var settingsButton = new Button(settingsButtonTexture, buttonFont)
         {
             Position = new(1390, 40),
@@ -52,23 +43,16 @@ public class GameState : State
             Text = "",
         };
         arrowRightBotton.Click += ArrowRightBottonClick;
-        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,tableButton };
+        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton };
     }
-
-    private void TableButtonClick(object sender, EventArgs e)
-    {
-        Globals.Quest = 1;
-        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
-    }
-
     private void ArrowRightBottonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new Room2(_game,_graphicsDevice,_content));
+        _game.ChangeState(new GameState(_game,_graphicsDevice,_content));
     }
 
     private void ArrowLeftBottonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new Room4(_game,_graphicsDevice,_content));
+        _game.ChangeState(new Room3(_game,_graphicsDevice,_content));
     }
     
     private void SettingsButtonClick(object sender, EventArgs e)
@@ -78,7 +62,7 @@ public class GameState : State
 
     public override void LoadContent()
     {
-        gameBackground = _content.Load<Texture2D>("Backgrounds/Bedroom");
+            gameBackground = _content.Load<Texture2D>("Backgrounds/k3");
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
