@@ -18,8 +18,16 @@ public class Game1 : Game
     private Texture2D _img;
 
     private Song song;
-    
+    private int _virtualW = 1440;
+    private int _virtualH = 900;
 
+    public Matrix GetScaleMatrix()
+    {
+        var skaleX = (float)_graphics.PreferredBackBufferWidth / _virtualW;
+        var skaleY = (float)_graphics.PreferredBackBufferHeight / _virtualH;
+        return Matrix.CreateScale(skaleX, skaleY, 1f);
+    }
+    
     public Game1()
     {
         _graphics = new(this);
@@ -27,9 +35,9 @@ public class Game1 : Game
         IsMouseVisible = true;
     }
 
-    public int[] widthHeight()
+    public float[] widthHeight()
     {
-        return new int[] { _graphics.PreferredBackBufferWidth,_graphics.PreferredBackBufferHeight};
+        return new float[] { _graphics.PreferredBackBufferWidth,_graphics.PreferredBackBufferHeight};
     }
     protected override void Initialize()
     {
@@ -38,7 +46,7 @@ public class Game1 : Game
         _graphics.PreferredBackBufferHeight = 900;
         //_graphics.PreferredBackBufferWidth = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
         //_graphics.PreferredBackBufferHeight = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-       // _graphics.IsFullScreen = true;
+       //_graphics.IsFullScreen = true;
         _graphics.ApplyChanges();
 
         base.Initialize();
@@ -46,7 +54,7 @@ public class Game1 : Game
 
     protected override void LoadContent()
     {
-        _spriteBatch = new SpriteBatch(GraphicsDevice);
+        _spriteBatch = new (GraphicsDevice);
         song = Content.Load<Song>("audio");
         MediaPlayer.Play(song);
         MediaPlayer.IsRepeating = true;
@@ -95,6 +103,7 @@ public class Game1 : Game
     {
         GraphicsDevice.Clear(Color.CornflowerBlue);
         _currentState.Draw(gameTime,_spriteBatch);
+        
         // TODO: Add your drawing code here
 
         base.Draw(gameTime);

@@ -68,7 +68,7 @@ public class Room3 : State
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
-        spriteBatch.Draw(gameBackground, Vector2.Zero,Color.White);
+        spriteBatch.Draw(gameBackground, Vector2.Zero, Color.White);
         foreach (var component in _components)
         {
             component.Draw(gameTime, spriteBatch);

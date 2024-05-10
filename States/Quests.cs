@@ -19,14 +19,14 @@ public class Quests : State
     private float timer;
     private string _stringValue = string.Empty;
     private SpriteFont font;
-    private int[] password ={0,0,0,0};
+    private int[] password = { 0, 0, 0, 0 };
 
     private float _rotation;
     private Vector2 pos;
-    public Vector2 origin;
-    public StringBuilder pass = new StringBuilder();
 
-    
+
+    private float[] angles = { 3, 2, 1, 3 };
+
     public Quests(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
     : base(game, graphicsDevice, content)
     {
@@ -35,13 +35,9 @@ public class Quests : State
         {
             var keyTexture = _content.Load<Texture2D>("Controls/key");
             var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-            var keyButton = new Button(keyTexture, buttonFont)
-            {
-                Position = new(500,500),
-                Text = ""
-            };
+            var keyButton = new Button(keyTexture, buttonFont) { Position = new(500, 500), Text = "" };
             keyButton.Click += keyButtonClick;
-            _components = new(){ keyButton };
+            _components = new() { keyButton };
         }
         if (Globals.Quest == 1)
         {
@@ -133,7 +129,7 @@ public class Quests : State
                 button9,
             };
         }
-        if (Globals.Quest == 6 || Globals.Quest==5)
+        if (Globals.Quest == 6)
         {
             var TVButtonTexture = _content.Load<Texture2D>("Controls/TVController");
             var TVButton1 = new Button(TVButtonTexture, font) { Position = new Vector2(0, 0), Text = "", };
@@ -142,15 +138,65 @@ public class Quests : State
             TVButton2.Click += TVButtonClick2;
             var TVButton3 = new Button(TVButtonTexture, font) { Position = new Vector2(220, 0), Text = "", };
             TVButton3.Click += TVButtonClick3;
-            _components = new(){TVButton3, TVButton1, TVButton2};
+            _components = new() { TVButton3, TVButton1, TVButton2 };
             if (Globals.Quest == 5)
             {
                 var Button4 = new Button(TVButtonTexture, font) { Position = new Vector2(320, 0), Text = "" };
                 Button4.Click += TVButton4Click;
                 _components = new List<Component>() { TVButton3, TVButton1, TVButton2, Button4 };
             }
-                
-                
+        }
+        if (Globals.Quest == 5)
+        {
+            var pusTxt = _content.Load<Texture2D>("Controls/key");
+            var puz = new Button(pusTxt, _content.Load<SpriteFont>("Fonts/Font")) { Position = new Vector2(120, 100), Text = "" };
+            puz.Click += puzClicked;
+
+            var puz2 = new Button(pusTxt, _content.Load<SpriteFont>("Fonts/Font")) { Position = new Vector2(120, 540), Text = "" };
+            puz2.Click += puz2Clicked;
+
+            var puz3 = new Button(pusTxt, _content.Load<SpriteFont>("Fonts/Font")) { Position = new Vector2(1300, 100), Text = "" };
+            puz3.Click += puz3Clicked;
+
+            var puz4 = new Button(pusTxt, _content.Load<SpriteFont>("Fonts/Font")) { Position = new Vector2(1300, 540), Text = "" };
+            puz4.Click += puz4Clicked;
+            _components = new List<Component>() { puz, puz2, puz3, puz4 };
+        }
+    }
+
+    public void puzClicked(object sender, EventArgs e)
+    {
+        angles[0]++;
+        if (angles[0] > 3)
+        {
+            angles[0] = 0;
+        }
+    }
+
+    public void puz2Clicked(object sender, EventArgs e)
+    {
+        angles[1]++;
+        if (angles[1] > 3)
+        {
+            angles[1] = 0;
+        }
+    }
+
+    public void puz3Clicked(object sender, EventArgs e)
+    {
+        angles[2]++;
+        if (angles[2] > 3)
+        {
+            angles[2] = 0;
+        }
+    }
+
+    public void puz4Clicked(object sender, EventArgs e)
+    {
+        angles[3]++;
+        if (angles[3] > 3)
+        {
+            angles[3] = 0;
         }
     }
 
@@ -165,18 +211,21 @@ public class Quests : State
     {
         Globals.Key = true;
     }
+
     private void TVButtonClick1(object sender, EventArgs e)
     {
         password[0] += 1;
         if (password[0] > 9)
             password[0] = 0;
     }
+
     private void TVButtonClick2(object sender, EventArgs e)
     {
         password[1] += 1;
         if (password[1] > 9)
             password[1] = 0;
     }
+
     private void TVButtonClick3(object sender, EventArgs e)
     {
         password[2] += 1;
@@ -249,7 +298,6 @@ public class Quests : State
             gameBackground = _content.Load<Texture2D>("Backgrounds/openFridge");
         if (Globals.Quest == 5)
             gameBackground = _content.Load<Texture2D>("Backgrounds/fridgeTask");
-
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -259,10 +307,10 @@ public class Quests : State
         var i = 0;
         if (Globals.Quest == 4)
         {
-            if (Globals.Key==false)
+            if (Globals.Key == false)
                 foreach (var component in _components)
                 {
-                    component.Draw(gameTime,spriteBatch);
+                    component.Draw(gameTime, spriteBatch);
                 }
         }
         if (Globals.Quest == 3)
@@ -270,9 +318,8 @@ public class Quests : State
             foreach (var component in _components)
             {
                 component.Draw(gameTime, spriteBatch);
-                DrawPassword(spriteBatch, i, 5, new (709, 150));
-                WriteResult(_stringValue, "347594", spriteBatch, _content.Load<Texture2D>("answers/safeAns"),_content.Load<Texture2D>("answers/safeWrongAns"), new(0, 0),new (460,88));
-                
+                DrawPassword(spriteBatch, i, 5, new(709, 150));
+                WriteResult(_stringValue, "347594", spriteBatch, _content.Load<Texture2D>("answers/safeAns"), _content.Load<Texture2D>("answers/safeWrongAns"), new(0, 0), new(460, 88));
             }
         }
         if (Globals.Quest == 1)
@@ -280,43 +327,46 @@ public class Quests : State
             foreach (var component in _components)
             {
                 component.Draw(gameTime, spriteBatch);
-                DrawPassword(spriteBatch, i, 9, new (395, 292));
-                WriteResult(_stringValue, "8244839167", spriteBatch, _content.Load<Texture2D>("answers/phoneAns"),_content.Load<Texture2D>("answers/wrongPhoneAns"), new(389, 285),new (389,285));
-                
+                DrawPassword(spriteBatch, i, 9, new(395, 292));
+                WriteResult(_stringValue, "8244839167", spriteBatch, _content.Load<Texture2D>("answers/phoneAns"), _content.Load<Texture2D>("answers/wrongPhoneAns"), new(389, 285), new(389, 285));
             }
         }
 
         if (Globals.Quest == 2)
         {
-            spriteBatch.Draw(_content.Load<Texture2D>("answers/" + Globals.Type + "Book"),new Vector2(70,100),Color.White);
+            spriteBatch.Draw(_content.Load<Texture2D>("answers/" + Globals.Type + "Book"), new Vector2(70, 100), Color.White);
         }
         if (Globals.Quest == 6)
         {
             foreach (var component in _components)
             {
-                component.Draw(gameTime,spriteBatch);
-                spriteBatch.DrawString(font,password[0].ToString(),new (1200,800),Color.Red);
-                spriteBatch.DrawString(font,password[1].ToString(),new (1230,800),Color.Red);
-                spriteBatch.DrawString(font,password[2].ToString(),new (1250,800),Color.Red);
-                if (string.Join("",password) == "2410")
-                    spriteBatch.Draw(_content.Load<Texture2D>("answers/TVans"),new Vector2(0,0),Color.White);
+                component.Draw(gameTime, spriteBatch);
+                spriteBatch.DrawString(font, password[0].ToString(), new(1200, 800), Color.Red);
+                spriteBatch.DrawString(font, password[1].ToString(), new(1230, 800), Color.Red);
+                spriteBatch.DrawString(font, password[2].ToString(), new(1250, 800), Color.Red);
+                if (string.Join("", password) == "2410")
+                    spriteBatch.Draw(_content.Load<Texture2D>("answers/TVans"), new Vector2(0, 0), Color.White);
             }
         }
         if (Globals.Quest == 5)
         {
+            var texture = _content.Load<Texture2D>("Slice 13");
+            var texture2 = _content.Load<Texture2D>("Slice 14");
+            var texture3 = _content.Load<Texture2D>("Slice 15");
+            var texture4 = _content.Load<Texture2D>("Slice 16");
+
             foreach (var component in _components)
             {
-                component.Draw(gameTime,spriteBatch);
-                spriteBatch.DrawString(font,password[0].ToString(),new (1200,800),Color.Red);
-                spriteBatch.DrawString(font,password[1].ToString(),new (1230,800),Color.Red);
-                spriteBatch.DrawString(font,password[2].ToString(),new (1250,800),Color.Red);
-                spriteBatch.DrawString(font,password[3].ToString(),new (1280,800),Color.Red);
-                if (string.Join("", password) == "9490")
+                component.Draw(gameTime, spriteBatch);
+                spriteBatch.Draw(texture, new Vector2(495, 225), null, Color.White, angles[0] * 90 * (3.14f / 180), new Vector2(texture.Width / 2, texture.Height / 2), Vector2.One, SpriteEffects.None, 1f);
+                spriteBatch.Draw(texture2, new Vector2(495, 675), null, Color.White, angles[1] * 90 * (3.14f / 180), new Vector2(texture2.Width / 2, texture2.Height / 2), Vector2.One, SpriteEffects.None, 1f);
+                spriteBatch.Draw(texture3, new Vector2(945, 225), null, Color.White, angles[2] * 90 * (3.14f / 180), new Vector2(texture2.Width / 2, texture2.Height / 2), Vector2.One, SpriteEffects.None, 1f);
+                spriteBatch.Draw(texture4, new Vector2(945, 675), null, Color.White, angles[3] * 90 * (3.14f / 180), new Vector2(texture3.Width / 2, texture3.Height / 2), Vector2.One, SpriteEffects.None, 1f);
+                if (string.Join("", angles) == "0000" && Mouse.GetState().LeftButton == ButtonState.Pressed)
                 {
                     Globals.Quest = 4;
-                    _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+                    _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
                 }
-                    
             }
         }
 
@@ -332,24 +382,21 @@ public class Quests : State
         }
     }
 
-    private void WriteResult(String str, string answer, SpriteBatch spriteBatch, Texture2D rightAnswer,Texture2D wrongAnswer, Vector2 vectorCorrect,Vector2 vectorWrong )
+    private void WriteResult(String str, string answer, SpriteBatch spriteBatch, Texture2D rightAnswer, Texture2D wrongAnswer, Vector2 vectorCorrect, Vector2 vectorWrong)
     {
         if (str == answer)
         {
             spriteBatch.Draw(rightAnswer, vectorCorrect, Color.White);
-            if( Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 _stringValue = String.Empty;
         }
-        else if (_stringValue.Length >= answer.Length )
+        else if (_stringValue.Length >= answer.Length)
         {
             spriteBatch.Draw(wrongAnswer, vectorWrong, Color.White);
-            if( Mouse.GetState().LeftButton == ButtonState.Pressed)
+            if (Mouse.GetState().LeftButton == ButtonState.Pressed)
                 _stringValue = String.Empty;
         }
-            
-        
     }
-    
 
     public override void PostUpdate(GameTime gameTime) { }
 
@@ -361,12 +408,12 @@ public class Quests : State
             _game.ChangeState(new GameState(_game, _graphicsDevice, _content));
         if (Keyboard.GetState().IsKeyDown(Keys.Q) && (Globals.Quest == 2 || Globals.Quest == 3))
             _game.ChangeState(new Room2(_game, _graphicsDevice, _content));
-        if (Keyboard.GetState().IsKeyDown(Keys.Q) && (Globals.Quest == 4 || Globals.Quest==5))
+        if (Keyboard.GetState().IsKeyDown(Keys.Q) && (Globals.Quest == 4 || Globals.Quest == 5))
             _game.ChangeState(new Room3(_game, _graphicsDevice, _content));
         if (Keyboard.GetState().IsKeyDown(Keys.Q) && Globals.Quest == 6)
             _game.ChangeState(new Room4(_game, _graphicsDevice, _content));
 
-        if (Globals.Quest == 1 || Globals.Quest == 3 || Globals.Quest==6 || Globals.Quest==5)
+        if (Globals.Quest == 1 || Globals.Quest == 3 || Globals.Quest == 6 || Globals.Quest == 5)
         {
             foreach (var component in _components)
             {
@@ -374,12 +421,11 @@ public class Quests : State
             }
         }
 
-        if (Globals.Quest == 4 && Globals.Key==false)
+        if (Globals.Quest == 4 && Globals.Key == false)
         {
             foreach (var component in _components)
             {
                 component.Update(gameTime);
-                
             }
         }
 
