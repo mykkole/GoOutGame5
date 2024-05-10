@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
 This file contains an xml description of a font, and will be read by the XNA
 Framework Content Pipeline. Follow the comments to customize the appearance
@@ -54,6 +54,13 @@ with.
       <CharacterRegion>
         <Start>&#32;</Start>
         <End>&#126;</End>
+      </CharacterRegion>
+    </CharacterRegions>
+
+    <CharacterRegions>
+      <CharacterRegion>
+        <Start>&#1040;</Start>
+        <End>&#1112;</End>
       </CharacterRegion>
     </CharacterRegions>
   </Asset>

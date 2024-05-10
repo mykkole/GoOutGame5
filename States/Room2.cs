@@ -23,6 +23,11 @@ public class Room2 : State
         var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
         var arrowLeftBottonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
         var arrowRightBottonTexture  = _content.Load<Texture2D>("Controls/ArrowRight");
+        var redBookBottonTexture = _content.Load<Texture2D>("Controls/RedBook");
+        var blueBookBottonTexture = _content.Load<Texture2D>("Controls/BlueBook");
+        var purpleBookBottonTexture = _content.Load<Texture2D>("Controls/PurpleBook");
+        var yellowBookBottonTexture = _content.Load<Texture2D>("Controls/YellowBook");
+        var safeTexture = _content.Load<Texture2D>("Controls/safe");
         var settingsButton = new Button(settingsButtonTexture, buttonFont)
         {
             Position = new(1390, 40),
@@ -36,6 +41,7 @@ public class Room2 : State
             Text = "",
         };
         arrowLeftBotton.Click += ArrowLeftBottonClick;
+       
         
         var arrowRightBotton= new Button(arrowRightBottonTexture, buttonFont)
         {
@@ -43,9 +49,58 @@ public class Room2 : State
             Text = "",
         };
         arrowRightBotton.Click += ArrowRightBottonClick;
-        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton };
+
+        var redBookBotton = new Button(redBookBottonTexture, buttonFont) { Position = new(833, 190), Text = "", };
+        redBookBotton.Click += redBookBottonClick;
+        
+        var blueBookBotton = new Button(blueBookBottonTexture, buttonFont) { Position = new(1042, 476), Text = "", };
+        blueBookBotton.Click += blueBookBottonClick;
+        
+        var purpleBookBotton = new Button(purpleBookBottonTexture, buttonFont) { Position = new(1095, 476), Text = "", };
+        purpleBookBotton.Click += purpleBookBottonClick;
+        
+        var yellowBookBotton = new Button(yellowBookBottonTexture, buttonFont) { Position = new(1132, 313), Text = "", };
+        yellowBookBotton.Click += yellowBookBottonClick;
+        var safeBotton = new Button(safeTexture, buttonFont) { Position = new (1062, 606), Text = "", };
+        safeBotton.Click += safeBottonClick;
+        
+        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,redBookBotton,blueBookBotton,purpleBookBotton, yellowBookBotton,safeBotton};
     }
     
+    private void safeBottonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 3;
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+    
+    private void redBookBottonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 2;
+        Globals.Type = "Red";
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+    
+    private void blueBookBottonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 2;
+        Globals.Type = "Blue";
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+    
+    private void purpleBookBottonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 2;
+        Globals.Type = "Purple";
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+    
+    private void yellowBookBottonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 2;
+        Globals.Type = "Yellow";
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+
     private void ArrowRightBottonClick(object sender, EventArgs e)
     {
         _game.ChangeState(new Room3(_game,_graphicsDevice,_content));
@@ -63,7 +118,7 @@ public class Room2 : State
 
     public override void LoadContent()
     {
-            gameBackground = _content.Load<Texture2D>("Backgrounds/k1");
+            gameBackground = _content.Load<Texture2D>("Backgrounds/Library");
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -84,12 +139,13 @@ public class Room2 : State
 
     public override void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.M))
+        if ( Keyboard.GetState().IsKeyDown(Keys.Escape))
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
         foreach (var component in _components)
         {
             component.Update(gameTime);
         }
+        
         timer += (float)gameTime.ElapsedGameTime.TotalSeconds;
     }
 }

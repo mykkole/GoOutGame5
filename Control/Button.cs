@@ -9,6 +9,8 @@ public class Button : Component
 {
     #region Fields
 
+    private Game1 _game;
+
     private MouseState _currentMouse;
 
     private SpriteFont _font;
@@ -18,7 +20,6 @@ public class Button : Component
     private MouseState _previousMouse;
 
     private Texture2D _texture;
-
     #endregion
 
     #region Properties
@@ -33,11 +34,9 @@ public class Button : Component
     {
         get
         {
-            return new Vector2(_texture.Width / 2, _texture.Height / 2);
+            return new (_texture.Width / 2, _texture.Height / 2);
         }
     }
-
-    private Color PenColour = Color.White;
 
     public Vector2 Position { get; set; }
 
@@ -45,11 +44,12 @@ public class Button : Component
     {
         get
         {
-            return new Rectangle((int)Position.X - ((int)Origin.X), (int)Position.Y - (int)Origin.Y, _texture.Width, _texture.Height);
+            return new ((int)Position.X - ((int)Origin.X), (int)Position.Y - (int)Origin.Y, _texture.Width, _texture.Height);
         }
     }
 
     public string Text;
+    
 
     #endregion
 
@@ -62,21 +62,25 @@ public class Button : Component
         _font = font;
     }
 
+
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         var colour = Color.White;
 
-        if (_isHovering)
+        if (_isHovering && Text != "")
             colour = Color.Gray;
-
+       
+        
         spriteBatch.Draw(_texture, Position, null, colour, 0f, Origin, 1f, SpriteEffects.None, Layer);
 
         if (!string.IsNullOrEmpty(Text))
         {
+            if (Globals.Quest == 3)
+                colour = Color.Black;
             var x = (Rectangle.X + (Rectangle.Width / 2)) - (_font.MeasureString(Text).X / 2);
             var y = (Rectangle.Y + (Rectangle.Height / 2)) - (_font.MeasureString(Text).Y / 2);
 
-            spriteBatch.DrawString(_font, Text, new Vector2(x, y), PenColour, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+            spriteBatch.DrawString(_font, Text,new (x,y),colour);
         }
     }
 
@@ -95,7 +99,7 @@ public class Button : Component
 
             if (_currentMouse.LeftButton == ButtonState.Released && _previousMouse.LeftButton == ButtonState.Pressed)
             {
-                Click?.Invoke(this, new EventArgs());
+                Click?.Invoke(this, new());
             }
         }
     }

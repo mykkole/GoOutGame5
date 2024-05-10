@@ -23,6 +23,10 @@ public class Room4 : State
         var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
         var arrowLeftBottonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
         var arrowRightBottonTexture  = _content.Load<Texture2D>("Controls/ArrowRight");
+        var hintButtonTexture = _content.Load<Texture2D>("Controls/hint");
+        var TVButtonTexture = _content.Load<Texture2D>("Controls/TVTexture");
+        var TVButton = new Button(TVButtonTexture, buttonFont) { Position = new Vector2(635, 670), Text = "", };
+        TVButton.Click += TVButtonClick;
         var settingsButton = new Button(settingsButtonTexture, buttonFont)
         {
             Position = new(1390, 40),
@@ -43,7 +47,22 @@ public class Room4 : State
             Text = "",
         };
         arrowRightBotton.Click += ArrowRightBottonClick;
-        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton };
+
+        var hintButton = new Button(hintButtonTexture, buttonFont) { Position = new(200, 800), Text = "", };
+        hintButton.Click += hintButtonClick;
+        
+        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,hintButton,TVButton };
+    }
+
+    private void TVButtonClick(object sender, EventArgs e)
+    {
+        Globals.Quest = 6;
+        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+
+    private void hintButtonClick(object sender, EventArgs e)
+    {
+        _game.ChangeState(new Hint(_game,_graphicsDevice,_content));
     }
     private void ArrowRightBottonClick(object sender, EventArgs e)
     {
@@ -62,7 +81,7 @@ public class Room4 : State
 
     public override void LoadContent()
     {
-            gameBackground = _content.Load<Texture2D>("Backgrounds/k3");
+            gameBackground = _content.Load<Texture2D>("Backgrounds/LivingRoom");
     }
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
@@ -83,7 +102,7 @@ public class Room4 : State
 
     public override void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.M))
+        if( Keyboard.GetState().IsKeyDown(Keys.Escape)) 
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
         foreach (var component in _components)
         {

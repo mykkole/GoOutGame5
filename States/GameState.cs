@@ -13,35 +13,42 @@ public class GameState : State
     private List<Component> _components;
     public static Random random;
     private Texture2D gameBackground;
-    private int Counter;
     private float timer;
     public GameState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
     : base(game, graphicsDevice, content)
     {
-        random = new Random();
+        var w = _game.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
+        var h = _game.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
+        random = new ();
         var settingsButtonTexture = _content.Load<Texture2D>("Controls/SettingsButton");
         var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
         var arrowLeftBottonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
         var arrowRightBottonTexture  = _content.Load<Texture2D>("Controls/ArrowRight");
         var tableTexture = _content.Load<Texture2D>("Controls/tableButton");
-        
+        var bedTexture = _content.Load<Texture2D>("Controls/bedTxt");
+        var bedButton = new Button(bedTexture, buttonFont)
+        {
+            Position = new Vector2(1250,755),
+            Text = ""
+        };
+        bedButton.Click = bedButtonClick;
         var tableButton = new Button(tableTexture, buttonFont)
         {
-            Position = new(462, 696),
+            Position = new Vector2(500,700),
             Text = "",
         };
         tableButton.Click += TableButtonClick;
         
         var settingsButton = new Button(settingsButtonTexture, buttonFont)
         {
-            Position = new(1390, 40),
+            Position = new Vector2(1390,40),
             Text = "",
         };
         settingsButton.Click += SettingsButtonClick;
         
         var arrowLeftBotton = new Button(arrowLeftBottonTexture, buttonFont)
         {
-            Position = new(50, 500),
+            Position = new Vector2(50,500),
             Text = "",
         };
         arrowLeftBotton.Click += ArrowLeftBottonClick;
@@ -52,13 +59,18 @@ public class GameState : State
             Text = "",
         };
         arrowRightBotton.Click += ArrowRightBottonClick;
-        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,tableButton };
+        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,tableButton,bedButton };
     }
 
     private void TableButtonClick(object sender, EventArgs e)
     {
         Globals.Quest = 1;
         _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+    }
+    private void bedButtonClick(object sender, EventArgs e)
+    {
+        Globals.Bed = true;
+        Globals.Quest = 7;
     }
 
     private void ArrowRightBottonClick(object sender, EventArgs e)
@@ -81,17 +93,37 @@ public class GameState : State
         gameBackground = _content.Load<Texture2D>("Backgrounds/Bedroom");
     }
 
+    public float Layer { get; set; }
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
         spriteBatch.Begin();
-        spriteBatch.Draw(gameBackground, new Vector2(0,0),Color.White);
-        foreach (var component in _components)
+        spriteBatch.Draw(gameBackground,Vector2.Zero, Color.White);
+        if (Globals.Bed)
         {
-            component.Draw(gameTime,spriteBatch);
+            if (Globals.Key)
+            {
+                spriteBatch.Draw(_content.Load<Texture2D>("Backgrounds/findKey"), Vector2.Zero, Color.White);
+                //spriteBatch.DrawString(_font, Text, new Vector2(x, y), _color, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, Layer + 0.01f);
+                spriteBatch.DrawString(_content.Load<SpriteFont>("Fonts/Font"),"Press escape to leave",new Vector2(500,500),Color.Black);
+            }
+            else
+                spriteBatch.Draw(_content.Load<Texture2D>("Backgrounds/notKey"),Vector2.Zero, Color.White);
+            if( Keyboard.GetState().IsKeyDown(Keys.Q)) 
+                Globals.Bed = false;
         }
+        else
+        {
+            foreach (var component in _components)
+            {
+                component.Draw(gameTime,spriteBatch);
+            }
+        }
+        
         spriteBatch.End();
         
     }
+
+  
 
     public override void PostUpdate(GameTime gameTime)
     {
@@ -99,8 +131,13 @@ public class GameState : State
 
     public override void Update(GameTime gameTime)
     {
-        if (Keyboard.GetState().IsKeyDown(Keys.M))
+        if ( Keyboard.GetState().IsKeyDown(Keys.Escape))
             _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+        if (Globals.Key)
+        { 
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                _game.Exit();
+        }
         foreach (var component in _components)
         {
             component.Update(gameTime);
