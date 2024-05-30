@@ -20,12 +20,13 @@ public class Game1 : Game
     private Song song;
     private int _virtualW = 1440;
     private int _virtualH = 900;
+    private Rectangle windowClientBounds;
 
     public Matrix GetScaleMatrix()
     {
         var skaleX = (float)_graphics.PreferredBackBufferWidth / _virtualW;
         var skaleY = (float)_graphics.PreferredBackBufferHeight / _virtualH;
-        return Matrix.CreateScale(skaleX, skaleY, 1f);
+        return Matrix.CreateScale(skaleX, skaleY, 1.0f);
     }
     
     public Game1()
@@ -42,11 +43,11 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // TODO: Add your initialization logic here
-        _graphics.PreferredBackBufferWidth = 1440;
-        _graphics.PreferredBackBufferHeight = 900;
-        //_graphics.PreferredBackBufferWidth = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Width;
-        //_graphics.PreferredBackBufferHeight = _graphics.GraphicsDevice.Adapter.CurrentDisplayMode.Height;
-       //_graphics.IsFullScreen = true;
+        //_graphics.PreferredBackBufferWidth = 1440;
+        //_graphics.PreferredBackBufferHeight = 900;
+       _graphics.PreferredBackBufferWidth = 1980;
+        _graphics.PreferredBackBufferHeight = 1080;
+        _graphics.IsFullScreen = true;
         _graphics.ApplyChanges();
 
         base.Initialize();
@@ -101,9 +102,8 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.Black);
         _currentState.Draw(gameTime,_spriteBatch);
-        
         // TODO: Add your drawing code here
 
         base.Draw(gameTime);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using GoOutGame.Control;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -67,35 +68,31 @@ public class Room2 : State
 
     private void safeBottonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 3;
-        _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
+        Globals.Quest = "safe";
+        _game.ChangeState(new phoneAndSafeQuest(_game, _graphicsDevice, _content));
     }
 
     private void redBookBottonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 2;
-        Globals.Type = "Red";
+        Globals.Quest = "Book Red";
         _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
     }
 
     private void blueBookBottonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 2;
-        Globals.Type = "Blue";
+        Globals.Quest = "Book Blue";
         _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
     }
 
     private void purpleBookBottonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 2;
-        Globals.Type = "Purple";
+        Globals.Quest = "Book Purple";
         _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
     }
 
     private void yellowBookBottonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 2;
-        Globals.Type = "Yellow";
+        Globals.Quest = "Book Yellow";
         _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
     }
 
@@ -111,7 +108,8 @@ public class Room2 : State
 
     private void SettingsButtonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+        Globals.location = new Room2(_game, _graphicsDevice, _content);
+        _game.ChangeState(new SettingsState(_game, _graphicsDevice, _content));
     }
 
     public override void LoadContent()

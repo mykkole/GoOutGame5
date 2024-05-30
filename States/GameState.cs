@@ -21,51 +21,51 @@ public class GameState : State
         random = new();
         var settingsButtonTexture = _content.Load<Texture2D>("Controls/SettingsButton");
         var buttonFont = _content.Load<SpriteFont>("Fonts/Font");
-        var arrowLeftBottonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
-        var arrowRightBottonTexture = _content.Load<Texture2D>("Controls/ArrowRight");
+        var arrowLeftButtonTexture = _content.Load<Texture2D>("Controls/ArrowLeft");
+        var arrowRightButtonTexture = _content.Load<Texture2D>("Controls/ArrowRight");
         var tableTexture = _content.Load<Texture2D>("Controls/tableButton");
         var bedTexture = _content.Load<Texture2D>("Controls/bedTxt");
         var bedButton = new Button(bedTexture, buttonFont) { Position = new Vector2(1250, 755), Text = "" };
-        bedButton.Click = bedButtonClick;
-        var tableButton = new Button(tableTexture, buttonFont) { Position = new Vector2(500, 700), Text = "", };
+        bedButton.Click = BedButtonClick;
+        var tableButton = new Button(tableTexture, buttonFont) { Position = new Vector2(500, 700), Text = "" };
         tableButton.Click += TableButtonClick;
 
-        var settingsButton = new Button(settingsButtonTexture, buttonFont) { Position = new Vector2(1390, 40), Text = "", };
+        var settingsButton = new Button(settingsButtonTexture, buttonFont) { Position = new Vector2(1390, 40), Text = "" };
         settingsButton.Click += SettingsButtonClick;
 
-        var arrowLeftBotton = new Button(arrowLeftBottonTexture, buttonFont) { Position = new Vector2(50, 500), Text = "", };
-        arrowLeftBotton.Click += ArrowLeftBottonClick;
+        var arrowLeftButton = new Button(arrowLeftButtonTexture, buttonFont) { Position = new Vector2(50, 500), Text = "" };
+        arrowLeftButton.Click += ArrowLeftButtonClick;
 
-        var arrowRightBotton = new Button(arrowRightBottonTexture, buttonFont) { Position = new(1390, 500), Text = "", };
-        arrowRightBotton.Click += ArrowRightBottonClick;
-        _components = new() { arrowLeftBotton, arrowRightBotton, settingsButton, tableButton, bedButton };
+        var arrowRightButton = new Button(arrowRightButtonTexture, buttonFont) { Position = new(1390, 500), Text = "" };
+        arrowRightButton.Click += ArrowRightButtonClick;
+        _components = new() { arrowLeftButton, arrowRightButton, settingsButton, tableButton, bedButton };
     }
 
     private void TableButtonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 1;
-        _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
+        Globals.Quest = "phone";
+        _game.ChangeState(new phoneAndSafeQuest(_game, _graphicsDevice, _content));
     }
 
-    private void bedButtonClick(object sender, EventArgs e)
+    private void BedButtonClick(object sender, EventArgs e)
     {
         Globals.Bed = true;
-        Globals.Quest = 7;
     }
 
-    private void ArrowRightBottonClick(object sender, EventArgs e)
+    private void ArrowRightButtonClick(object sender, EventArgs e)
     {
         _game.ChangeState(new Room2(_game, _graphicsDevice, _content));
     }
 
-    private void ArrowLeftBottonClick(object sender, EventArgs e)
+    private void ArrowLeftButtonClick(object sender, EventArgs e)
     {
         _game.ChangeState(new Room4(_game, _graphicsDevice, _content));
     }
 
     private void SettingsButtonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+        Globals.location = new GameState(_game,_graphicsDevice,_content);
+        _game.ChangeState(new SettingsState(_game, _graphicsDevice, _content));
     }
 
     public override void LoadContent()
@@ -76,6 +76,7 @@ public class GameState : State
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
+        //spriteBatch.Begin(transformMatrix:_game.GetScaleMatrix());
         spriteBatch.Begin();
         spriteBatch.Draw(gameBackground, Vector2.Zero, Color.White);
         if (Globals.Bed)

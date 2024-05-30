@@ -41,8 +41,16 @@ public class Room3 : State
 
     private void fridgeButtonClick(object sender, EventArgs e)
     {
-        Globals.Quest = Globals.Key ? 4 : 5;
-        _game.ChangeState(new Quests(_game, _graphicsDevice, _content));
+        Globals.Quest = Globals.Key ? "key" : "puzzle";
+        if (Globals.Key)
+        {
+            _game.ChangeState(new Quests(_game,_graphicsDevice,_content));   
+        }
+        else
+        {
+             _game.ChangeState(new Puzzle(_game, _graphicsDevice, _content));
+        }
+       
     }
 
     private void ArrowRightBottonClick(object sender, EventArgs e)
@@ -57,7 +65,8 @@ public class Room3 : State
 
     private void SettingsButtonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game, _graphicsDevice, _content));
+        Globals.location = new Room3(_game, _graphicsDevice, _content);
+        _game.ChangeState(new SettingsState(_game, _graphicsDevice, _content));
     }
 
     public override void LoadContent()

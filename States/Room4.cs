@@ -25,39 +25,38 @@ public class Room4 : State
         var arrowRightBottonTexture  = _content.Load<Texture2D>("Controls/ArrowRight");
         var hintButtonTexture = _content.Load<Texture2D>("Controls/hint");
         var TVButtonTexture = _content.Load<Texture2D>("Controls/TVTexture");
-        var TVButton = new Button(TVButtonTexture, buttonFont) { Position = new Vector2(635, 670), Text = "", };
+        var TVButton = new Button(TVButtonTexture, buttonFont) { Position = new (635, 670), Text = "", };
         TVButton.Click += TVButtonClick;
         var settingsButton = new Button(settingsButtonTexture, buttonFont)
         {
             Position = new(1390, 40),
-            Text = "",
+            Text = ""
         };
         settingsButton.Click += SettingsButtonClick;
         
         var arrowLeftBotton = new Button(arrowLeftBottonTexture, buttonFont)
         {
             Position = new(50, 500),
-            Text = "",
+            Text = ""
         };
         arrowLeftBotton.Click += ArrowLeftBottonClick;
         
-        var arrowRightBotton= new Button(arrowRightBottonTexture, buttonFont)
+        var arrowRightButton= new Button(arrowRightBottonTexture, buttonFont)
         {
             Position = new(1390, 500),
-            Text = "",
+            Text = ""
         };
-        arrowRightBotton.Click += ArrowRightBottonClick;
+        arrowRightButton.Click += ArrowRightBottonClick;
 
-        var hintButton = new Button(hintButtonTexture, buttonFont) { Position = new(200, 800), Text = "", };
+        var hintButton = new Button(hintButtonTexture, buttonFont) { Position = new(200, 800), Text = "" };
         hintButton.Click += hintButtonClick;
         
-        _components = new() { arrowLeftBotton,arrowRightBotton,settingsButton,hintButton,TVButton };
+        _components = new() { arrowLeftBotton,arrowRightButton,settingsButton,hintButton,TVButton };
     }
 
     private void TVButtonClick(object sender, EventArgs e)
     {
-        Globals.Quest = 6;
-        _game.ChangeState(new Quests(_game,_graphicsDevice,_content));
+        _game.ChangeState(new TVQuest(_game,_graphicsDevice,_content));
     }
 
     private void hintButtonClick(object sender, EventArgs e)
@@ -76,7 +75,8 @@ public class Room4 : State
     
     private void SettingsButtonClick(object sender, EventArgs e)
     {
-        _game.ChangeState(new MenuState(_game,_graphicsDevice,_content));
+        Globals.location = new Room4(_game, _graphicsDevice, _content);
+        _game.ChangeState(new SettingsState(_game, _graphicsDevice, _content));
     }
 
     public override void LoadContent()

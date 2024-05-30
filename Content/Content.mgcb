@@ -133,11 +133,35 @@
 /processorParam:TextureFormat=Color
 /build:answers/Group 182.png;answers/safeAns
 
-#begin Antent_Nectry_-_Farewell_77480314.mp3
+#begin answers/Group 195.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:answers/Group 195.png;answers/playMusic
+
+#begin answers/Group 197.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:answers/Group 197.png;answers/noMusic
+
+#begin ask_eternity_-_coma_(musmore.org).mp3
 /importer:Mp3Importer
 /processor:SongProcessor
 /processorParam:Quality=Best
-/build:Antent_Nectry_-_Farewell_77480314.mp3;audio
+/build:ask_eternity_-_coma_(musmore.org).mp3;audio
 
 #begin Backgrounds/05aad97879547e08ce23a75076e91ca0 1.png
 /importer:TextureImporter
@@ -271,6 +295,18 @@
 /processorParam:TextureFormat=Color
 /build:Backgrounds/image 21.png;Backgrounds/findKey
 
+#begin Backgrounds/settings.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Backgrounds/settings.png;Backgrounds/settings
+
 #begin Backgrounds/Slice 12.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -378,6 +414,42 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Controls/Group 181.png;Controls/key
+
+#begin Controls/Group 188.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Group 188.png;Controls/continue
+
+#begin Controls/Group 189.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Group 189.png;Controls/music
+
+#begin Controls/Group 194.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Controls/Group 194.png;Controls/menu
 
 #begin Controls/Group 66.png
 /importer:TextureImporter
@@ -530,7 +602,7 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/fo.spritefont;Fonts/font.spritefont
 
-#begin Slice 13.png
+#begin Slice 13 1 (1).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -540,7 +612,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Slice 13.png;Slice 13
+/build:Slice 13 1 (1).png;Slice 13 1 
 
 #begin Slice 14.png
 /importer:TextureImporter
@@ -554,7 +626,7 @@
 /processorParam:TextureFormat=Color
 /build:Slice 14.png;Slice 14
 
-#begin Slice 15.png
+#begin Slice 15 1 (2).png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -564,7 +636,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:Slice 15.png;Slice 15
+/build:Slice 15 1 (2).png;Slice 15
 
 #begin Slice 16.png
 /importer:TextureImporter

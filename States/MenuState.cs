@@ -10,7 +10,7 @@ namespace GoOutGame.States;
 
 public class MenuState : State
 {
-    private List<Component> _components;
+    private readonly List<Component> components;
     private Texture2D menuBack;
 
     public MenuState(Game1 game, GraphicsDevice graphicsDevice, ContentManager content)
@@ -25,7 +25,7 @@ public class MenuState : State
         var exitButton = new Button(buttonTexture, buttonFont) { Position = new(200, 650), Text = "Bye", };
         exitButton.Click += ExitButtonClick;
 
-        _components = new() { newGameButton, exitButton, };
+        components = new() { newGameButton, exitButton, };
     }
 
     private void ExitButtonClick(object sender, EventArgs e)
@@ -45,9 +45,10 @@ public class MenuState : State
 
     public override void Draw(GameTime gameTime, SpriteBatch spriteBatch)
     {
+        //spriteBatch.Begin(transformMatrix:_game.GetScaleMatrix());
         spriteBatch.Begin();
-        spriteBatch.Draw(menuBack, new Rectangle(0, 0, (int)_game.widthHeight()[0], (int)_game.widthHeight()[1]), Color.White);
-        foreach (var component in _components)
+        spriteBatch.Draw(menuBack, new Vector2(0,0), Color.White);
+        foreach (var component in components)
         {
             component.Draw(gameTime, spriteBatch);
         }
@@ -58,7 +59,7 @@ public class MenuState : State
 
     public override void Update(GameTime gameTime)
     {
-        foreach (var component in _components)
+        foreach (var component in components)
         {
             component.Update(gameTime);
         }
